@@ -1,0 +1,152 @@
+library(MASS)
+data(crabs)
+crabsquant <- crabs[,4:8]
+
+crabBM = crabsquant[1:50,]
+crabBF = crabsquant[50:100,]
+crabOM = crabsquant[100:150,]
+crabOF = crabsquant[150:200,]
+
+
+#####Male and Female
+crabM = rbind(crabBM, crabOM)
+crabF = rbind(crabBF, crabOF)
+
+#attach(crabM)
+#inter<-seq(min(CL),max(CL),by=(max(CL)-min(CL))/5)
+#hist(CL,breaks=inter, main = "Male longueur carapace")
+#detach(crabM)
+
+#x11()
+#attach(crabF)
+#inter<-seq(min(CL),max(CL),by=(max(CL)-min(CL))/5)
+#hist(CL,breaks=inter, main = "Female longueur carapace")
+#detach(crabF)
+
+boxplot(cbind(crabM$BD,crabF$BD ), main = "longueur carapace" , names = c("Male", "Female") , row.names = c(NA, -5L), class = "data.frame")
+
+#X11()
+#boxplot(cbind(crabM$RW,crabF$RW ), main = "Taille du train arrière", names = c("Male", "Female"), row.names = c(NA, -5L), class = "data.frame")
+
+X11()
+boxplot(cbind(crabM$FL,crabF$FL ), main = "Taille du lobe frontal" , names = c("Male", "Female") , row.names = c(NA, -5L), class = "data.frame")
+
+X11()
+boxplot(cbind(crabM$BD,crabF$BD ), main = "Profondeur du corps", names = c("Male", "Female"))
+
+#X11()
+#boxplot(cbind(crabM$RW,crabF$RW ), main = "Taille du train arrière")
+
+#####Bleu and Orange#######
+
+crabO = rbind(crabOF, crabOM)
+crabB = rbind(crabBF, crabBM)
+
+#attach(crabO)
+#inter<-seq(min(BD),max(BD), by=(max(BD)-min(BD))/5)
+#hist(BD,breaks=inter, main = "Orange longueur carapace")
+#detach(crabO)
+
+#x11()
+#attach(crabB)
+#inter<-seq(min(BD),max(BD),by=(max(BD)-min(BD))/5)
+#hist(BD,breaks=inter, main = "Bleu longueur carapace")
+#detach(crabB)
+
+
+boxplot(cbind(crabO$BD,crabB$BD ), main = "longueur carapace" , names = c("Crabs Orange", "Crabs Bleu") , row.names = c(NA, -5L), class = "data.frame")
+
+#X11()
+#boxplot(cbind(crabO$RW,crabB$RW ), main = "Taille du train arrière", names = c("Crabs Orange", "Crabs Bleu"), row.names = c(NA, -5L), class = "data.frame")
+
+X11()
+boxplot(cbind(crabO$FL,crabB$FL ), main = "Taille du lobe frontal" , names = c("Crabs Orange", "Crabs Bleu") , row.names = c(NA, -5L), class = "data.frame")
+
+X11()
+boxplot(cbind(crabO$BD,crabB$BD ), main = "Profondeur du corps", names = c("Crabs Orange", "Crabs Bleu"))
+
+
+
+covM = cov(crabM)
+covF = cov(crabF)
+covO = cov(crabO)
+covB = cov(crabB)
+
+print(covM)
+print(covF)
+print(covO)
+print(covB)
+
+
+
+
+
+
+
+
+#centrage et mise à l'echelle
+# crabBM = scale(crabBM)
+# crabBM = scale(crabBM)
+# crabBM = scale(crabBM)
+# crabBM = scale(crabBM)
+
+#covariance
+# covBM = cov(crabBM)
+# covBF = cov(crabBF)
+# covOM = cov(crabOM)
+# covOF = cov(crabOF)
+
+#diagonalisation
+# diagBM = eigen(covBM)
+# valeurPBM = diagBM$values
+# vecteurPBM = diagBM$vectors
+
+# diagBF = eigen(covBF)
+# valeurPBF = diagBF$values
+# vecteurPBF = diagBF$vectors
+
+# diagOM = eigen(covOM)
+# valeurPOM = diagOM$values
+# vecteurPOM = diagOM$vectors
+
+# diagOF = eigen(covOF)
+# valeurPOF = diagOF$values
+# vecteurPOF = diagOF$vectors
+
+#Matrice ACP 
+
+# CBM = crabBM %*% vecteurPBM
+
+# v1 = CBM[,2]
+# v2 = CBM[,4]
+# plot(v1,v2)
+
+#Sexe
+# crabM = rbind(crabBM, crabOM)
+# crabF = rbind(crabBF, crabOF)
+
+# crabM = scale(crabM)
+# crabF = scale(crabF)
+
+# covM = cov(crabM)
+# covF = cov(crabF)
+
+# diagM = eigen(covM)
+# valeurPM = diagM$values
+# vecteurPM = diagM$vectors
+
+# diagF = eigen(covF)
+# valeurPF = diagF$values
+# vecteurPF = diagF$vectors
+
+# CM = crabM %*% vecteurPM
+# CF = crabF %*% vecteurPF
+
+# v1 = CM[,2]
+# v2 = CM[,5]
+# plot(v1,v2, main = "Male")
+
+# x11()
+# v1 = CF[,2]
+# v2 = CF[,5]
+# plot(v1,v2, main = "Female")
