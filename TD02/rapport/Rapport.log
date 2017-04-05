@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (MiKTeX 2.9) (preloaded format=xelatex 2016.4.10)  5 APR 2017 11:55
+This is XeTeX, Version 3.14159265-2.6-0.99992 (MiKTeX 2.9) (preloaded format=xelatex 2016.4.10)  5 APR 2017 20:38
 entering extended mode
 **./Rapport.tex
 (Rapport.tex
@@ -637,6 +637,7 @@ File: diplome-notes.png Graphic file (type QTm)
 File: branche-notes.png Graphic file (type QTm)
 
 <use  "branche-notes.png" >
+Requested font "eccc1000" at 10.0pt
 File: caracteristiquesMF.png Graphic file (type QTm)
  <use  "caracteristiquesMF.png" >
 File: caracteristiquesOB.png Graphic file (type QTm)
@@ -651,29 +652,51 @@ File: sexe-crabs.png Graphic file (type QTm)
 <use  "sexe-crabs.png" >
 File: spicies-crabs.png Graphic file (type QTm)
  <use  "spicies-crabs.png" >
-Overfull \hbox (21.82968pt too wide) in paragraph at lines 99--100
+File: logo_utc.jpg Graphic file (type QTm)
+ <use  "logo_utc.jpg" >
+[2]
+Overfull \hbox (21.82968pt too wide) in paragraph at lines 105--106
 []\T1/cmr/m/n/10 On re-marque qu'il existe une forte liai-son entre toutes les 
 ca-rac-té-ris-tiques. Même avec ce graphe bi-di-men-sion-nel,
  []
 
+
+Package caption Warning: \label without proper reference on input line 98.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig3' on page 3 undefined on input line 118.
+
+
+Overfull \hbox (17.23717pt too wide) in paragraph at lines 118--119
+\T1/cmr/m/n/10 Nous pou-vons re-mar-quer que la ma-trice de cor-ré-la-tion conf
+irme la forte liai-son entre les dif-fé-rentes ca-rac-té-ris-tiques
+ []
+
 File: logo_utc.jpg Graphic file (type QTm)
-<use  "logo_utc.jpg" > [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 103.
+<use  "logo_utc.jpg" > [3]
+Missing character: There is no ’ in font ecrm1000!
+Missing character: There is no ’ in font ecrm1000!
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 143.
 File: logo_utc.jpg Graphic file (type QTm)
- <use  "logo_utc.jpg" > [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 103.
+ <use  "logo_utc.jpg" > [4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 143.
  (Rapport.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 103.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 103.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 103.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 143.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 143.
+
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 143.
  ) 
 Here is how much of TeX's memory you used:
- 14677 strings out of 428696
- 206433 string characters out of 3163377
- 310486 words of memory out of 3000000
- 17905 multiletter control sequences out of 15000+200000
- 13254 words of font info for 36 fonts, out of 3000000 for 9000
+ 14685 strings out of 428696
+ 206518 string characters out of 3163377
+ 312486 words of memory out of 3000000
+ 17912 multiletter control sequences out of 15000+200000
+ 13927 words of font info for 37 fonts, out of 3000000 for 9000
  1096 hyphenation exceptions out of 8191
  61i,16n,96p,616b,414s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Rapport.pdf (4 pages).
+Output written on Rapport.pdf (5 pages).
