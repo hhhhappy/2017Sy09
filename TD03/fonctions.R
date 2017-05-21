@@ -92,15 +92,44 @@ donn <- read.csv("donnees/Synth1-40.csv")
 Xapp <- donn[,1:2]
 zapp <- donn[,3]
 
-donn <- read.csv("donnees/Synth1-100.csv")
-Xtst <- donn[,1:2]
-ztst <- donn[,3]
-
+# 1.1.3 Test des fonctions
 # mu <- ceuc.app(Xapp, zapp)
 # front.ceuc(Xapp, zapp, mu, 1000)
 
+# front.kppv(Xapp, zapp, 3, 1000)
 
+donn <- read.csv("donnees/Synth1-100.csv")
+Xtst <- donn[,1:2]
+ztst <- donn[,3]
 Kopt <- kppv.tune(Xapp, zapp, Xtst, ztst,2*(1:6)-1)
+# front.kppv(Xapp, zapp, Kopt, 1000)
 
-front.kppv(Xapp, zapp, Kopt, 1000)
+# 1.2 ¨¦valuation des performances
+taux.erreur <- function(X, z, N, K)
+{
+  res <- rep(0, N)
+  for(i in 1 : N){
+    donn.sep <- separ1(X, z)
+    Xapp <- donn.sep$Xapp
+    zapp <- donn.sep$zapp
+    Xtst <- donn.sep$Xtst
+    ztst <- donn.sep$ztst
+    
+    zres <- kppv.val(Xapp, zapp, K, Xtst)
+    temp <- zres == ztst
+    nTrue <- length(subset(temp, temp == TRUE ))
+    nFalse <- length(subset(temp, temp == FALSE ))
+    res[i] <- nFalse / (nTrue + nFalse)
+  }
+  res
+}
+# test example for the function taux.erreur
+donn <- read.csv("donnees/Synth1-40.csv")
+Xapp <- donn[,1:2]
+zapp <- donn[,3]
+tauxErreur <- taux.erreur(Xapp, zapp, 40, 3)
+# the mean of error rate
+teMoyen <- sum(tauxErreur)/length(tauxErreur)
+# intervalle de confiance
+
 
