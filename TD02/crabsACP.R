@@ -134,7 +134,7 @@ symbols(0,0, circle = 1.0, inches = F, add = T)
 text(cercle2[,1], cercle2[,2],labels=c("FL", "RW", "CL","BD"), cex= 0.7, pos=3)
 dev.off()
 
-
-
+x11()
+biplot(princomp(crabsquant), main="Représentation des individus dans le premier plan factoriel", ylab="Axe 2", xlab="Axe 1")
 
 

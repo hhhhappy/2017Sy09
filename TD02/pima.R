@@ -1,4 +1,4 @@
-Pima <- read.csv("Pima.csv", header=T)
+dPima <- read.csv("Pima.csv", header=T)
 Pima$z <- factor(Pima$z)
 
 print(summary(Pima))

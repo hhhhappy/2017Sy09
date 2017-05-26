@@ -18,11 +18,11 @@ ceuc.app <- function(Xapp, zapp)
 
 ceuc.val <- function(mu, Xtst)
 {
-  dist <- distXY(Xtst, mu)
+  dist <- distXY(mu, Xtst)
   len <- length(Xtst[,1])
   res <- rep(0,len)
   for(i in 1 : len){
-    res[i] <- which.min(dist[i,])
+    res[i] <- which.min(dist[,i])
   }
   returnValue(res)
 }
@@ -104,6 +104,29 @@ ztst <- donn[,3]
 Kopt <- kppv.tune(Xapp, zapp, Xtst, ztst,2*(1:6)-1)
 # front.kppv(Xapp, zapp, Kopt, 1000)
 
+# Test d'erreur pour le classificateur euclidien
+taux.erreur.euclid <- function(X, z, N)
+{
+  res <- rep(0, N)
+  for(i in 1 : N){
+    donn.sep <- separ1(X, z)
+    Xapp <- donn.sep$Xapp
+    zapp <- donn.sep$zapp
+    Xtst <- donn.sep$Xtst
+    ztst <- donn.sep$ztst
+    mu <- ceuc.app(Xapp, zapp)
+    
+    
+    nTst <- ceuc.val(mu, Xtst)
+    temp <- nTst == ztst
+    nTrue <- length(subset(temp, temp == TRUE ))
+    nFalse <- length(subset(temp, temp == FALSE ))
+    res[i] <- nFalse / (nTrue + nFalse)
+  }
+  res
+}
+
+
 # 1.2 ¨¦valuation des performances
 taux.erreur <- function(X, z, N, K)
 {
@@ -123,13 +146,40 @@ taux.erreur <- function(X, z, N, K)
   }
   res
 }
+## Taux erreur kppv
+taux.erreur.kppv <- function(X, z, N)
+{
+  res <- rep(0, N)
+  kppv <- rep(0,N)
+  for(i in 1 : N){
+    donn.sep <- separ2(X, z)
+    Xapp <- donn.sep$Xapp
+    zapp <- donn.sep$zapp
+    Xval <- donn.sep$Xval
+    zval <- donn.sep$zval
+    Xtst <- donn.sep$Xtst
+    ztst <- donn.sep$ztst
+    
+    # zres <- kppv.val(Xapp, zapp, K, Xtst)
+    # temp <- zres == ztst
+    # nTrue <- length(subset(temp, temp == TRUE ))
+    # nFalse <- length(subset(temp, temp == FALSE ))
+    # res[i] <- nFalse / (nTrue + nFalse)
+    
+    kppv[i] <- kppv.tune(Xapp, zapp, Xval, zval,(1:6))
+  }
+  kppv
+}
 # test example for the function taux.erreur
 donn <- read.csv("donnees/Synth1-40.csv")
 Xapp <- donn[,1:2]
 zapp <- donn[,3]
 tauxErreur <- taux.erreur(Xapp, zapp, 40, 3)
+tauxErreurEucl <- taux.erreur.euclid(Xapp, zapp, 40)
+kppv <- taux.erreur.kppv(Xapp, zapp, 40)
 # the mean of error rate
-teMoyen <- sum(tauxErreur)/length(tauxErreur)
+teMoyen <- sum(tauxErreur)/length(tauxErreur)*100
+teMoyenEucl <- sum(tauxErreurEucl)/length(tauxErreurEucl)*100
 # intervalle de confiance
 
 

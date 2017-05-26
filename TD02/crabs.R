@@ -36,7 +36,7 @@ boxplot(list(crabO$FL, crabB$FL,crabO$RW, crabB$RW,crabO$CL, crabB$CL,crabO$CW, 
         main="Caractéristiques des crabes 
         Différence des espèces Orange/Blue",
         las=2,
-        names = c('Orange','Blue','Orange','Blue','Orange','Blue','Blue','Blue','Orange','Blue'))
+        names = c('Orange','Blue','Orange','Blue','Orange','Blue','Orange','Blue','Orange','Blue'))
 legend(11,50,xpd=NA,inset=.05, title="Legend",
        c("FL","RW","CL","CW","BD"), 
        fill=c("forestgreen","darkmagenta","gold","deepskyblue4","darkred"))
