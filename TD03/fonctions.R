@@ -262,13 +262,23 @@ donnPima <- read.csv("donnees/Pima.csv")
 Xapp <- donnPima[,1 : (ncol(donnPima) - 1)]
 zapp <- donnPima[,ncol(donnPima)]
 
-pi <- pi.classes(zapp)
-mu <- mu.classes(Xapp, zapp)
-var <- var.classes(Xapp, zapp)
+piPima <- pi.classes(zapp)
+muPima <- mu.classes(Xapp, zapp)
+varPima <- var.classes(Xapp, zapp)
 TEKPima <- taux.erreur.kppv(Xapp, zapp, 20)
 TEECPima <- taux.erreur.euclid(Xapp, zapp, 20)
 teMoyenPima <- sum(TEKPima)/length(TEKPima)*100
 teMoyenEuclPima <- sum(TEECPima)/length(TEECPima)*100
 
 donnBreastcancer <- read.csv("donnees/Breastcancer.csv")
+Xapp <- donnBreastcancer[,1 : (ncol(donnBreastcancer) - 1)]
+zapp <- donnBreastcancer[,ncol(donnBreastcancer)]
+piBreastcancer <- pi.classes(zapp)
+muBreastcancer <- mu.classes(Xapp, zapp)
+varBreastcancer <- var.classes(Xapp, zapp)
+TEKBreastcancer <- taux.erreur.kppv(Xapp, zapp, 20)
+TEECBreastcancer <- taux.erreur.euclid(Xapp, zapp, 20)
+teMoyenBreastcancer <- sum(TEKBreastcancer)/length(TEKBreastcancer)*100
+teMoyenEuclBreastcancer <- sum(TEECBreastcancer)/length(TEECBreastcancer)*100
+
 
