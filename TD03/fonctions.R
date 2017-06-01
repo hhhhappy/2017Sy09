@@ -152,52 +152,67 @@ taux.erreur.kppv <- function(X, z, N)
   res
 }
 
-pi.classes <- function(z){
-  n1 <- length(subset(z, z == 1 ))
-  n2 <- length(subset(z, z == 2 ))
-  res <- rep(0, 2)
-  res[1] <- n1/length(z)
-  res[2] <- n2/length(z)
+
+parameters <- function(Xapp, zapp){
+  res <- NULL
+  res$pi1 <- nrow(Xapp[zapp==1,])/nrow(Xapp)
+  res$pi2 <- nrow(Xapp[zapp==2,])/nrow(Xapp)
+  res$mu1 <- apply(Xapp[zapp==1,], 2, mean)
+  res$mu2 <- apply(Xapp[zapp==2,], 2, mean)
+  res$sigma1 <- cov(Xapp[zapp==1,])
+  res$sigma2 <- cov(Xapp[zapp==2,]) 
   res
 }
-mu.classes <- function(X, z){
-  vect1 <- rep(0, 2)
-  vect2 <- rep(0, 2)
-  n1 <- length(subset(z, z == 1 ))
-  n2 <- length(subset(z, z == 2 ))
-  z <- as.factor(z)
-  X <- cbind(X,z)
-  donn1 <- subset(X,z == levels(z)[1])
-  donn2 <- subset(X,z == levels(z)[2])
-  vect1[1] <- sum(donn1[1]) / n1
-  vect1[2] <- sum(donn1[2]) / n1
-  vect2[1] <- sum(donn2[1]) / n2
-  vect2[2] <- sum(donn2[2]) / n2
-  res <- cbind(vect1, vect2)
-}
 
-var.classes <- function(X, z){
-  mu <- mu.classes(X,z)
-  z <- as.factor(z)
-  X <- cbind(X,z)
-  donn1 <- subset(X,z == levels(z)[1])
-  donn2 <- subset(X,z == levels(z)[2])
-  donn1 <- donn1[, 1:2]
-  donn2 <- donn2[, 1:2]
-  temp <- rep(0,2);
-  temp <- t(temp) 
-  print(temp)
-  for(i in 1 : length(donn1)){
-    temp <- temp + (donn1[i,] - mu[,1])*t((donn1[i,] - mu[,1]))
-  }
-  res <- temp / length(donn1)
-  temp = 0;
-  for(i in 1 : length(donn2)){
-    temp <- temp+ (donn2[i,] - mu[,2])*t((donn2[i,] - mu[,2]))
-  }
-  res <- rbind(res, temp / length(donn2))
-}
-
+# 
+# pi.classes <- function(z){
+#   n1 <- length(subset(z, z == 1 ))
+#   n2 <- length(subset(z, z == 2 ))
+#   res <- rep(0, 2)
+#   res[1] <- n1/length(z)
+#   res[2] <- n2/length(z)
+#   res
+# }
+# mu.classes <- function(X, z){
+#   vect1 <- rep(0, 2)
+#   vect2 <- rep(0, 2)
+#   z <- as.factor(z)
+#   n1 <- length(subset(z, z == levels(z)[1] ))
+#   n2 <- length(subset(z, z == levels(z)[2] ))
+#   
+#   X <- cbind(X,z)
+#   donn1 <- subset(X,z == levels(z)[1])
+#   donn2 <- subset(X,z == levels(z)[2])
+#   vect1[1] <- sum(donn1[1]) / n1
+#   vect1[2] <- sum(donn1[2]) / n1
+#   
+#   vect2[1] <- sum(donn2[1]) / n2
+#   vect2[2] <- sum(donn2[2]) / n2
+#   res <- cbind(vect1, vect2)
+# }
+# 
+# var.classes <- function(X, z){
+#   mu <- mu.classes(X,z)
+#   z <- as.factor(z)
+#   X <- cbind(X,z)
+#   donn1 <- subset(X,z == levels(z)[1])
+#   donn2 <- subset(X,z == levels(z)[2])
+#   donn1 <- donn1[, 1:2]
+#   donn2 <- donn2[, 1:2]
+#   temp <- rep(0,2)
+#   temp <- t(temp) 
+#   print(temp)
+#   for(i in 1 : length(donn1)){
+#     temp <- temp + (donn1[i,] - mu[,1])*t((donn1[i,] - mu[,1]))
+#   }
+#   res <- temp / length(donn1)
+#   temp = 0;
+#   for(i in 1 : length(donn2)){
+#     temp <- temp+ (donn2[i,] - mu[,2])*t((donn2[i,] - mu[,2]))
+#   }
+#   res <- rbind(res, temp / length(donn2))
+# }
+# 
 # test example for the function taux.erreur
 donn <- read.csv("donnees/Synth1-40.csv")
 Xapp <- donn[,1:2]
@@ -210,16 +225,10 @@ zapp <- donn[,3]
 # teMoyenEucl <- sum(tauxErreurEucl)/length(tauxErreurEucl)*100
 # intervalle de confiance
 
-# donn <- read.csv("donnees/Synth1-40.csv")
-# Xapp <- donn[,1:2]
-# zapp <- donn[,3]
-# pi <- pi.classes(zapp)
-# mu <- mu.classes(Xapp, zapp)
-# var <- var.classes(Xapp, zapp)
-# 
-# donn <- read.csv("donnees/Synth1-40.csv")
-# Xapp <- donn[,1:2]
-# zapp <- donn[,3]
+donn <- read.csv("donnees/Synth1-100.csv")
+Xapp <- donn[,1:2]
+zapp <- donn[,3]
+
 # TEK40 <- taux.erreur.kppv(Xapp, zapp, 20)
 # TEEC40 <- taux.erreur.euclid(Xapp, zapp, 20)
 # teMoyen40 <- sum(TEK40)/length(TEK40)*100
@@ -258,17 +267,17 @@ zapp <- donn[,3]
 # teMoyen1000 <- sum(TEK1000)/length(TEK1000)*100
 # teMoyenEucl1000 <- sum(TEEC1000)/length(TEEC1000)*100
 
-donnPima <- read.csv("donnees/Pima.csv")
-Xapp <- donnPima[,1 : (ncol(donnPima) - 1)]
-zapp <- donnPima[,ncol(donnPima)]
-
-pi <- pi.classes(zapp)
-mu <- mu.classes(Xapp, zapp)
-var <- var.classes(Xapp, zapp)
-TEKPima <- taux.erreur.kppv(Xapp, zapp, 20)
-TEECPima <- taux.erreur.euclid(Xapp, zapp, 20)
-teMoyenPima <- sum(TEKPima)/length(TEKPima)*100
-teMoyenEuclPima <- sum(TEECPima)/length(TEECPima)*100
-
-donnBreastcancer <- read.csv("donnees/Breastcancer.csv")
-
+# donnPima <- read.csv("donnees/Pima.csv")
+# Xapp <- donnPima[,1 : (ncol(donnPima) - 1)]
+# zapp <- donnPima[,ncol(donnPima)]
+# 
+# pi <- pi.classes(zapp)
+# mu <- mu.classes(Xapp, zapp)
+# var <- var.classes(Xapp, zapp)
+# TEKPima <- taux.erreur.kppv(Xapp, zapp, 20)
+# TEECPima <- taux.erreur.euclid(Xapp, zapp, 20)
+# teMoyenPima <- sum(TEKPima)/length(TEKPima)*100
+# teMoyenEuclPima <- sum(TEECPima)/length(TEECPima)*100
+# 
+# donnBreastcancer <- read.csv("donnees/Breastcancer.csv")
+# 
